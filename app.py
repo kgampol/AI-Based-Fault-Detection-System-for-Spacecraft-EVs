@@ -5,30 +5,20 @@ from typing import Dict, Any
 import numpy as np
 import logging
 import os
-from prometheus_client import Counter, Histogram, make_wsgi_app
 import time
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 # Configure logging
 logging.basicConfig(
-    level=os.getenv('LOG_LEVEL', 'INFO'),
+    level='INFO',
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-# Prometheus metrics
-PREDICTIONS = Counter('fault_detection_predictions_total', 'Total number of predictions made')
-PREDICTION_LATENCY = Histogram('fault_detection_latency_seconds', 'Time spent processing prediction')
-FAULT_COUNTER = Counter('fault_detection_faults_total', 'Total number of faults detected')
-
 # Load trained AI model
 try:
-    model_path = os.getenv('MODEL_PATH', 'fault_detection_model.pkl')
+    model_path = 'fault_detection_model.pkl'
     model = joblib.load(model_path)
     logger.info(f"Model loaded successfully from {model_path}")
 except Exception as e:
@@ -70,7 +60,6 @@ def validate_sensor_data(data: Dict[str, Any]) -> tuple[bool, str]:
     return True, ""
 
 @app.route('/predict', methods=['POST'])
-@PREDICTION_LATENCY.time()
 def predict():
     try:
         # Check if request contains JSON data
@@ -96,10 +85,8 @@ def predict():
         # Calculate confidence score (distance from decision boundary)
         confidence = abs(model.score_samples(df)[0])
         
-        # Update metrics
-        PREDICTIONS.inc()
+        # Log the prediction
         if prediction == -1:
-            FAULT_COUNTER.inc()
             logger.warning(f"Fault detected with confidence: {confidence}")
         else:
             logger.info(f"No fault detected with confidence: {confidence}")
@@ -119,8 +106,5 @@ def predict():
 def health_check():
     return jsonify({'status': 'healthy'})
 
-# Add Prometheus metrics endpoint
-app.wsgi_app = make_wsgi_app(app.wsgi_app)
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
