@@ -31,7 +31,6 @@ A production-grade AI-based fault detection system designed for real-time monito
 
 ### Monitoring & Logging
 - **Prometheus**: Metrics collection and monitoring
-- **Python-dotenv**: Environment variable management
 - **Logging**: Structured application logging
 
 ### Development & Testing
@@ -61,138 +60,12 @@ A production-grade AI-based fault detection system designed for real-time monito
 └─────────────────┘     └─────────────────┘     └─────────────────┘
 ```
 
-## 🚀 Features
-
-- **Real-time Monitoring**
-  - Live sensor data processing
-  - Instant anomaly detection
-  - Confidence scoring
-
-- **Production Features**
-  - Prometheus metrics integration
-  - Comprehensive logging
-  - Health check endpoints
-  - Input validation
-  - Error handling
-  - Docker support
-
-- **Development Tools**
-  - Comprehensive test suite
-  - Code formatting
-  - Linting
-  - Dependency management
-
 ## 📦 Installation
 
 1. Clone the repository:
 ```bash
 git clone [repository-url]
 cd spacecraft-fault-detection
-```
-
-2. Create and activate virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-.\venv\Scripts\activate   # Windows
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-## 🛠️ Usage
-
-1. Start the production server:
-```bash
-gunicorn app:app -b 0.0.0.0:5000
-```
-
-2. Send test data:
-```bash
-python test_api.py
-```
-
-## 🔌 API Endpoints
-
-- `POST /predict`: Submit sensor data for fault detection
-- `GET /metrics`: Prometheus metrics endpoint
-- `GET /health`: Health check endpoint
-
-## 📊 Monitoring
-
-The system includes Prometheus metrics for:
-- Request latency
-- Prediction accuracy
-- System resource usage
-- Fault detection rate
-
-## 🧪 Development
-
-1. Run tests:
-```bash
-pytest
-```
-
-2. Format code:
-```bash
-black .
-```
-
-3. Lint code:
-```bash
-flake8
-```
-
-## 🚀 Production Deployment
-
-1. Set environment variables:
-```bash
-export MODEL_PATH=/path/to/model.pkl
-export LOG_LEVEL=INFO
-```
-
-2. Deploy using Docker:
-```bash
-docker build -t fault-detection .
-docker run -p 5000:5000 fault-detection
-```
-
-## 📝 License
-
-Proprietary - All rights reserved
-
-## 👥 Contributing
-
-This is a proprietary system developed for spacecraft and EV fault detection. For inquiries about collaboration or licensing, please contact the repository owner.
-
-## 📊 System Architecture
-
-```
-├── app.py                 # Main Flask application
-├── train_ai_model.py      # AI model training script
-├── test_api.py           # API testing script
-├── visualize_model.py    # Data visualization and analysis
-├── fault_detection_model.pkl  # Trained AI model
-└── requirements.txt      # Project dependencies
-```
-
-## 🚀 Features
-
-- **Real-time Monitoring**
-  - Live sensor data processing
-  - Instant anomaly detection
-  - RESTful API interface
-  - Comprehensive visualization tools
-  - Support for both synthetic and real sensor data
-
-## 📦 Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd ai-fault-detection
 ```
 
 2. Install dependencies:
@@ -325,14 +198,18 @@ To retrain the model with new data:
 2. Run the training script
 3. The new model will be saved as `fault_detection_model.pkl`
 
-## Contributing
+## 🚀 Production Deployment
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+1. Deploy using Docker:
+```bash
+docker build -t fault-detection .
+docker run -p 5000:5000 fault-detection
+```
 
-## License
+## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Proprietary - All rights reserved
+
+## 👥 Contributing
+
+This is a proprietary system developed for spacecraft and EV fault detection. For inquiries about collaboration or licensing, please contact the repository owner.
